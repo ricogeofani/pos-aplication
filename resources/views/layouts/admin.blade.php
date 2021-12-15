@@ -215,7 +215,16 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Logout</a></li>
+              <li class="breadcrumb-item">
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                  onclick="event.preventDefault();
+                  document.getElementById('logout-form').submit();">
+                    <p class="text-danger">Logout</p>
+              </a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                  @csrf
+              </form>
+              </li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

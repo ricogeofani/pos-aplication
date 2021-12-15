@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +21,6 @@ Route::get('/', function () {
 });
 
 
-
 Route::get('/dashboard', [AdminController::class, 'dashboard']);
 Route::get('/barang', [AdminController::class, 'barang']);
 Route::get('/kategory', [AdminController::class, 'kategory']);
@@ -29,3 +30,6 @@ Route::get('/suplier', [AdminController::class, 'suplier']);
 Route::get('/penjualan', [AdminController::class, 'penjualan']);
 Route::get('/pembelian', [AdminController::class, 'pembelian']);
 Route::get('/laporan', [AdminController::class, 'laporan']);
+
+Auth::routes();
+Route::get('/home', [HomeController::class, 'index'])->name('home');
