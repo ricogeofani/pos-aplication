@@ -26,6 +26,8 @@
   <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+
+  @stack('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -219,7 +221,7 @@
                 <a class="dropdown-item" href="{{ route('logout') }}"
                   onclick="event.preventDefault();
                   document.getElementById('logout-form').submit();">
-                    <p class="text-danger">Logout</p>
+                    <p class="btn btn-sm btn-secondary">Logout</p>
               </a>
               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                   @csrf
@@ -290,5 +292,10 @@
 <script src="{{ asset('dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+
+{{-- vue js --}}
+<script src="{{ asset('js/vue.js') }}"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+@stack('js')
 </body>
 </html>

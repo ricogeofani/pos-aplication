@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategory;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -18,7 +19,8 @@ class AdminController extends Controller
 
     public function kategory()
     {
-        return view('admin.kategory');
+        $data_kategory = Kategory::all();
+        return view('admin.kategory', compact('data_kategory'));
     }
 
     public function pelanggan()

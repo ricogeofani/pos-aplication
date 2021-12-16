@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 
@@ -33,3 +34,7 @@ Route::get('/laporan', [AdminController::class, 'laporan']);
 
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::prefix('data')->group(function () {
+    Route::resource('/kategory', KategoryController::class);
+});
