@@ -4,6 +4,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoryController;
+use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\SuplierController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,4 +40,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('data')->group(function () {
     Route::resource('/kategory', KategoryController::class);
+    Route::resource('/pelanggan', PelangganController::class);
+    Route::resource('/karyawan', KaryawanController::class);
+    Route::resource('/suplier', SuplierController::class);
 });

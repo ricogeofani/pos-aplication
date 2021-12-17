@@ -10,13 +10,13 @@
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body login-card-body bg-dark">
-          <p class="login-box-msg">Halaman Login</p>
+          <h5 class="login-box-msg text-uppercase">Halaman Login</h5>
     
           <form action="{{ route('login') }}" method="POST">
             @csrf
             <div class="input-group mb-3">
                 <div class="col-md-10">
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required placeholder="email" autocomplete="email" autofocus>
 
                     @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -25,14 +25,14 @@
                     @enderror
                 </div>
               <div class="input-group-append">
-                <div class="input-group-text">
+                <div class="input-group-text text-light">
                   <span class="fas fa-envelope"></span>
                 </div>
               </div>
             </div>
             <div class="input-group mb-3">
                 <div class="col-md-10">
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required placeholder="password" autocomplete="current-password">
 
                     @error('password')
                         <span class="invalid-feedback" role="alert">
@@ -41,7 +41,7 @@
                     @enderror
                 </div>
               <div class="input-group-append">
-                <div class="input-group-text">
+                <div class="input-group-text text-light">
                   <span class="fas fa-lock"></span>
                 </div>
               </div>

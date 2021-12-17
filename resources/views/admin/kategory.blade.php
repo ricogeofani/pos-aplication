@@ -39,8 +39,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form :action="actionUrl" method="post" autocomplete="of" @submit="submitForm($event, data.id)">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel" v-if="!editStatus">Add Kategory</h4>
+                    <div class="modal-header text-uppercase">
+                        <h4 class="modal-title" id="exampleModalLabel" v-if="!editStatus">Add Kategory</h4>
                         <h4 class="modal-title" id="exampleModalLabel" v-if="editStatus">Edit Kategory</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -55,8 +55,7 @@
                         </div> 
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary mr-5">Save Data</button>
                     </div>
                 </form>
             </div>

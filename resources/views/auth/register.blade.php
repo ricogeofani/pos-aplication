@@ -10,7 +10,7 @@
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body login-card-body bg-dark">
-          <p class="login-box-msg">Halaman Register</p>
+          <h5 class="login-box-msg text-uppercase">Halaman Register</h5>
           <form action="{{ route('register') }}" method="POST">
             @csrf
             <div class="input-group mb-3">
@@ -24,7 +24,7 @@
                     @enderror
                 </div>
               <div class="input-group-append">
-                <div class="input-group-text">
+                <div class="input-group-text text-light">
                   <span class="fas fa-user"></span>
                 </div>
               </div>
@@ -40,7 +40,7 @@
                     @enderror
                 </div>
               <div class="input-group-append">
-                <div class="input-group-text">
+                <div class="input-group-text text-light">
                   <span class="fas fa-envelope"></span>
                 </div>
               </div>
@@ -56,7 +56,7 @@
                     @enderror
                 </div>
               <div class="input-group-append">
-                <div class="input-group-text">
+                <div class="input-group-text text-light">
                   <span class="fas fa-lock"></span>
                 </div>
               </div>
@@ -66,7 +66,7 @@
                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="password confirmation" autocomplete="new-password">
                 </div>
               <div class="input-group-append">
-                <div class="input-group-text">
+                <div class="input-group-text text-light">
                   <span class="fas fa-lock"></span>
                 </div>
               </div>
@@ -75,16 +75,18 @@
                 <button type="submit" class="btn btn-primary btn-block">Register</button>
               </div>
           </form>
-          <p class="mb-1">
-            @if (Route::has('password.request'))
-            <a class="btn btn-link" href="{{ route('password.request') }}">
-                {{ __('Forgot Your Password?') }}
-            </a>
-            @endif
-          </p>
-          <p class="mb-0">
-            <a href="{{ route('login') }}" class="text-center">I already have a membership</a>
-          </p>
+          <div class="footer text-center">
+            <p class="mb-1">
+              @if (Route::has('password.request'))
+              <a class="btn btn-link" href="{{ route('password.request') }}">
+                  {{ __('Forgot Your Password?') }}
+              </a>
+              @endif
+            </p>
+            <p class="mb-0">
+              <a href="{{ route('login') }}" class="text-center">I already have a membership</a>
+            </p>
+          </div>
         </div>
         <!-- /.login-card-body -->
       </div>
