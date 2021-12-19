@@ -221,8 +221,8 @@
                 <a class="dropdown-item" href="{{ route('logout') }}"
                   onclick="event.preventDefault();
                   document.getElementById('logout-form').submit();">
-                    <h5 class="text-danger">Logout</h5>
-              </a>
+                    <p class="text-danger btn btn-outline-secondary">Logout</p>
+                </a>
               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                   @csrf
               </form>

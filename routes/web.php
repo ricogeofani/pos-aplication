@@ -7,6 +7,7 @@ use App\Http\Controllers\KategoryController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\SuplierController;
+use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,4 +44,5 @@ Route::prefix('data')->group(function () {
     Route::resource('/pelanggan', PelangganController::class);
     Route::resource('/karyawan', KaryawanController::class);
     Route::resource('/suplier', SuplierController::class);
+    Route::resource('/barang', BarangController::class);
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategory;
+use App\Models\Suplier;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -14,7 +15,10 @@ class AdminController extends Controller
 
     public function barang()
     {
-        return view('admin.barang');
+        $data_kategory = Kategory::all();
+        $data_suplier = Suplier::all();
+
+        return view('admin.barang', compact('data_kategory', 'data_suplier'));
     }
 
     public function kategory()
