@@ -48,6 +48,11 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url('cart') }}" role="button">
+          <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+        </a>
+      </li>
       <!-- Navbar Search -->
       <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">

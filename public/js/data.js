@@ -27,6 +27,10 @@ var controller = new Vue({
                 _this.datas = _this.table.ajax.json().data;
             });
         },
+        formatPrice(value) {
+            let val = (value/1).toFixed(0).replace(".", ",");
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        },
         addData() {
             this.editStatus = false;
             this.data = {};
@@ -44,6 +48,10 @@ var controller = new Vue({
                     alert('data has been removed');
                 });
             }
+        },
+        detailData(event, index) {
+            this.data = this.datas[index];
+            $('#modal-detail').modal();
         },
         submitForm(event, id) {
             event.preventDefault();

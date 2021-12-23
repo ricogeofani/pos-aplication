@@ -17,7 +17,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-10">
-                            <a href="#" @click="addData()" class="btn btn-primary">Add Data</a>
+                            <a href="#" @click="addData()" class="btn btn-primary"> <i class="fa fa-plus"></i>Add Data</a>
                         </div>
                         <div class="card-body">
                             <table id="datatable" class="table table-striped">
@@ -91,10 +91,10 @@
             {render: function(index, row, data, meta){
                 return `
                 <div class="d-flex">
-                    <a href="#" class="btn btn-sm btn-warning rounded-pill" onclick="controller.editData(event, ${meta.row})">
+                    <a href="#" class="btn btn-sm btn-warning" onclick="controller.editData(event, ${meta.row})">
                         Update
                     </a>
-                    <a href="#" class="btn btn-danger btn-sm rounded-pill ml-2" onclick="controller.deleteData(event, ${data.id})">
+                    <a href="#" class="btn btn-danger btn-sm ml-2" onclick="controller.deleteData(event, ${data.id})">
                         Delete
                     </a>
                 </div>

@@ -8,6 +8,10 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\SuplierController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\Detail_penjualanController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,8 +36,10 @@ Route::get('/kategory', [AdminController::class, 'kategory']);
 Route::get('/pelanggan', [AdminController::class, 'pelanggan']);
 Route::get('/karyawan', [AdminController::class, 'karyawan']);
 Route::get('/suplier', [AdminController::class, 'suplier']);
-Route::get('/penjualan', [AdminController::class, 'penjualan']);
+Route::get('/transaksiPenjualan', [AdminController::class, 'transaksiPenjualan']);
 Route::get('/pembelian', [AdminController::class, 'pembelian']);
+Route::get('/cart', [AdminController::class, 'cart']);
+Route::get('/penjualan', [AdminController::class, 'penjualan']);
 Route::get('/laporan', [AdminController::class, 'laporan']);
 
 Auth::routes();
@@ -45,4 +51,7 @@ Route::prefix('data')->group(function () {
     Route::resource('/karyawan', KaryawanController::class);
     Route::resource('/suplier', SuplierController::class);
     Route::resource('/barang', BarangController::class);
+    Route::resource('/penjualan', PenjualanController::class);
+    Route::resource('/detail_penjualan', Detail_penjualanController::class);
+    Route::resource('/cart', CartController::class);
 });
