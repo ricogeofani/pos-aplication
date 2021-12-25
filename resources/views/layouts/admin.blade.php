@@ -31,6 +31,7 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
+  @include('sweetalert::alert')
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
@@ -49,7 +50,7 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" href="{{ url('cart') }}" role="button">
+        <a class="nav-link" href="{{ url('cartPenjualan') }}" role="button">
           <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
         </a>
       </li>
@@ -217,10 +218,24 @@
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <h1 class="m-0 font-weight-light text-uppercase">@yield('header')</h1>
           </div><!-- /.col -->
-          <div class="col-sm-6">
+          <div class="col-sm-4">
+                @if ($m_gagal = Session::get('m_gagal'))
+                  <div class="alert alert-danger text-center" style="height: 45px;opacity: 0.8">
+                    <button type="button" class="close" data-dismiss="alert"><strong>x</strong></button> 
+                    <p class="text-bold">{{ $m_gagal }}</p>
+                  </div>
+                @endif
+                @if ($m_berhasil = Session::get('m_berhasil'))
+                  <div class="alert alert-success text-center" style="height: 45px;opacity: 0.8">
+                    <button type="button" class="close" data-dismiss="alert"><strong>x</strong></button> 
+                    <p class="text-bold">{{ $m_berhasil }}</p>
+                  </div>
+                @endif
+          </div>
+          <div class="col-sm-4">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">
                 <a class="dropdown-item" href="{{ route('logout') }}"

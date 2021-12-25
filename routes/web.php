@@ -9,8 +9,8 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\SuplierController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PenjualanController;
-use App\Http\Controllers\Detail_penjualanController;
-use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\PembelianController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,10 +37,14 @@ Route::get('/pelanggan', [AdminController::class, 'pelanggan']);
 Route::get('/karyawan', [AdminController::class, 'karyawan']);
 Route::get('/suplier', [AdminController::class, 'suplier']);
 Route::get('/transaksiPenjualan', [AdminController::class, 'transaksiPenjualan']);
+Route::get('/transaksiPembelian', [AdminController::class, 'transaksiPembelian']);
 Route::get('/pembelian', [AdminController::class, 'pembelian']);
-Route::get('/cart', [AdminController::class, 'cart']);
+Route::get('/cartPenjualan', [AdminController::class, 'cartPenjualan']);
+Route::get('/cartPembelian', [AdminController::class, 'cartPembelian']);
 Route::get('/penjualan', [AdminController::class, 'penjualan']);
 Route::get('/laporan', [AdminController::class, 'laporan']);
+Route::get('/printPenjualan', [AdminController::class, 'print_LaporanPenjualan']);
+Route::get('/printPembelian', [AdminController::class, 'print_LaporanPembelian']);
 
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -52,6 +56,6 @@ Route::prefix('data')->group(function () {
     Route::resource('/suplier', SuplierController::class);
     Route::resource('/barang', BarangController::class);
     Route::resource('/penjualan', PenjualanController::class);
-    Route::resource('/detail_penjualan', Detail_penjualanController::class);
+    Route::resource('/pembelian', PembelianController::class);
     Route::resource('/cart', CartController::class);
 });

@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endpush
 
-@section('header', 'cart')
+@section('header', 'cart pembelian')
 @section('content')
 <component id="controller">
 
@@ -27,14 +27,14 @@
                                         <th>Nama Barang</th>
                                         <th>Unit</th>
                                         <th>Qty Stok</th>
-                                        <th>Harga Barang</th>
+                                        <th>Harga Beli</th>
                                         <th>Jumlah/unit</th>
-                                        <th>Total Bayar</th>
+                                        <th>Total</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                             </table>
-                            <a href="{{ url('transaksiPenjualan') }}" class="btn btn-warning float-right mt-5 mr-5">Checkout</a>
+                            <a href="{{ url('transaksiPembelian') }}" class="btn btn-warning float-right mt-5 mr-5">Checkout</a>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form :action="actionUrl" method="post" autocomplete="of" @submit="submitForm($event, data.id)">
-                    <div class="modal-header text-uppercase">
+                    <div class="modal-header text-uppercase bg-warning">
                         <h4 class="modal-title" id="exampleModalLabel" v-if="!editStatus">Add Barang</h4>
                         <h4 class="modal-title" id="exampleModalLabel" v-if="editStatus">Edit Barang</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -108,7 +108,7 @@
             {data: 'barang.qty_stok', class: 'text-center', orderable: true},
             
             {render: function(index, row, data, meta) {
-                const harga = data.barang.harga_jual
+                const harga = data.barang.harga_beli
 
                 const rupiah = (harga)=>{
                     return new Intl.NumberFormat("id-ID", {
@@ -123,7 +123,7 @@
             {data: 'qty', class: 'text-center', orderable: true},
             
             {render: function(index, row, data, meta) {
-                const sub_bayar = data.qty * data.barang.harga_jual
+                const sub_bayar = data.qty * data.barang.harga_beli
 
                 const rupiah = (sub_bayar)=>{
                     return new Intl.NumberFormat("id-ID", {

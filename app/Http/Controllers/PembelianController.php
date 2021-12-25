@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Barang;
 use App\Models\CartModel;
-use App\Models\Penjualan;
-use App\Models\Detail_penjualan;
+use App\Models\Pembelian;
+use App\Models\Detail_pembelian;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 
-class PenjualanController extends Controller
+class PembelianController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        $datas = Penjualan::with('barang', 'karyawan', 'pelanggan', 'detail_penjualan')->get();
+        $datas = Pembelian::with('barang', 'karyawan', 'suplier', 'detail_pembelian')->get();
 
         $datatables = datatables()->of($datas)->addIndexColumn();
         return $datatables->make(true);
@@ -32,48 +32,47 @@ class PenjualanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, CartModel $cart, Detail_penjualan $detail_penjualan)
+    public function store(Request $request, CartModel $cart, Detail_pembelian $detail_pembelian)
     {
         $this->validate($request, [
             'id_karyawan' => ['required'],
-            'id_pelanggan' => ['required'],
+            'id_suplier' => ['required'],
         ]);
 
         if ($request->id_karyawan == 0) {
             return back()->with('m_gagal', 'select data karyawan dulu!!');;
         }
 
-        if ($request->id_pelanggan == 0) {
-            // Alert::danger('gagal', 'Data pelanggan dan karyawan kosong!!');
-            return back()->with('m_gagal', 'select data pelanggan dulu!!');;
+        if ($request->id_suplier == 0) {
+            // Alert::danger('gagal', 'Data suplier dan karyawan kosong!!');
+            return back()->with('m_gagal', 'select data suplier dulu!!');;
         }
 
-        $penjualan = Penjualan::create([
+        $pembelian = Pembelian::create([
             'id_karyawan' => $request->id_karyawan,
-            'id_pelanggan' => $request->id_pelanggan,
+            'id_suplier' => $request->id_suplier,
         ]);
 
         $barangs = $request->id_barang;
         $qtys = $request->qty;
 
         foreach ($barangs as $key => $value) {
-            Detail_penjualan::insert([
-                'id_penjualan'  => $penjualan->id,
-                'id_barang'     => $value,
-                'qty'           => $qtys[$key],
-                'total_bayar'         => $request->total[$key],
-                'created_at'    => now(),
-                'updated_at'    => now(),
+            Detail_pembelian::insert([
+                'id_pembelian' => $pembelian->id,
+                'id_barang'   => $value,
+                'qty'       => $qtys[$key],
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
 
             $data_barang = Barang::find($value);
             $data_barang->update([
-                'qty_stok' => $data_barang->qty_stok - $qtys[$key],
+                'qty_stok' => $data_barang->qty_stok + $qtys[$key],
             ]);
         }
 
         $cart->where($cart->id)->delete();
-        return redirect('penjualan')->with('m_berhasil', 'transaksi berhasil!!');
+        return redirect('pembelian')->with('m_berhasil', 'transaksi berhasil!!');
     }
 
 
@@ -88,13 +87,13 @@ class PenjualanController extends Controller
     {
         $this->validate($request, [
             'id_karyawan' => ['required'],
-            'id_pelanggan' => ['required'],
+            'id_suplier' => ['required'],
         ]);
 
-        $penjualan = Penjualan::find($id);
-        $penjualan->update([
+        $pembelian = Pembelian::find($id);
+        $pembelian->update([
             'id_karyawan' => $request->id_karyawan,
-            'id_pelanggan' => $request->id_pelanggan,
+            'id_suplier' => $request->id_suplier,
         ]);
     }
 
@@ -106,9 +105,9 @@ class PenjualanController extends Controller
      */
     public function destroy($id)
     {
-        $penjualan = Penjualan::find($id);
+        $pembelian = pembelian::find($id);
 
-        Detail_penjualan::where('id_penjualan', $penjualan->id)->delete();
-        $penjualan->delete();
+        Detail_Pembelian::where('id_pembelian', $pembelian->id)->delete();
+        $pembelian->delete();
     }
 }

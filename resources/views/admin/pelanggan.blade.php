@@ -42,7 +42,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form :action="actionUrl" method="post" autocomplete="of" @submit="submitForm($event, data.id)">
-                    <div class="modal-header text-uppercase">
+                    <div class="modal-header text-uppercase bg-warning">
                         <h4 class="modal-title" id="exampleModalLabel" v-if="!editStatus">Add Pelanggan</h4>
                         <h4 class="modal-title" id="exampleModalLabel" v-if="editStatus">Edit Pelanggan</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">

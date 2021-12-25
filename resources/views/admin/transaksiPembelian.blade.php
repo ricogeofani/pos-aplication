@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="row">
                     <div class="col-md-4">
-                        <a href="{{ url('cartPenjualan') }}" class="btn btn-secondary ml-3 mt-3">Kembali</a>
+                        <a href="{{ url('cartPembelian') }}" class="btn btn-secondary ml-3 mt-3">Kembali</a>
                     </div>
                 </div>
                 <div class="container">
@@ -28,13 +28,13 @@
                                 <th>Nama Barang</th>
                                 <th>Unit</th>
                                 <th>Qty Stok</th>
-                                <th>Harga Jual</th>
+                                <th>Harga Beli</th>
                                 <th>Jumlah</th>
                                 <th>Total</th>
                             </tr>
                         </div>
                         <div class="tbody">
-                            <form action="{{ url('data/penjualan') }}" method="POST">
+                            <form action="{{ url('data/pembelian') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
                                     <div class="row">
@@ -55,14 +55,14 @@
                                     <div class="row mt-2">
                                         <div class="col-md-4"></div>
                                         <div class="col-md-2">
-                                            <label>Nama Pelanggan</label>
+                                            <label>Nama Suplier</label>
                                         </div>
                                         <div class="col-md-4">
-                                            <select name="id_pelanggan" class="form-control">
-                                                <option value="0">.pilih pelanggan</option>
-                                                @foreach ($data_pelanggan as $pelanggan)
-                                                            <option value="{{ $pelanggan->id }}">{{ $pelanggan->nama_pelanggan }}</option>
-                                                        @endforeach
+                                            <select name="id_suplier" class="form-control">
+                                                <option value="0">.pilih suplier</option>
+                                                @foreach ($data_suplier as $suplier)
+                                                    <option value="{{ $suplier->id }}">{{ $suplier->nama_suplier }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                             <div class="col-md-2"></div>
@@ -76,20 +76,19 @@
                                         <td>{{ $cart->nama_barang }}</td>
                                         <td>{{ $cart->unit}}</td>
                                         <td >{{ $cart->qty_stok }}</td>
-                                        <td>Rp. {{ number_format($cart->harga_jual, 2, ",", ".") }}</td>
+                                        <td>Rp. {{ number_format($cart->harga_beli, 2, ",", ".") }}</td>
                                         <td class="text-left">
                                             <input type="hidden" name="qty[]" value="{{ $cart->qty }}"> {{ $cart->qty }} {{ $cart->unit }}
                                         </td>
                                         <td>
-                                            <input type="hidden" name="total[]" value="{{ $cart->qty * $cart->harga_jual }}">
-                                            Rp {{ number_format($total[] = $cart->qty * $cart->harga_jual, 2, ",", ".") }}
+                                            Rp. {{ number_format($total[] = $cart->qty * $cart->harga_beli, 2, ",", ".") }}
                                         </td>
                                     </tr>                           
                                     @endforeach
                                     <tr>
                                         <td colspan="7" align="right">
                                             <hr>
-                                            <h3>Sub Total : <span class="text-danger">IDR Rp {{ number_format(array_sum($total), 2, ",", ".") }}</span> </h3>
+                                            <h3>Sub Total : <span class="text-danger">IDR Rp. {{ number_format(array_sum($total), 2, ",", ".") }}</span> </h3>
                                          </td>
                                     </tr>
                                     <tr class="table-none">

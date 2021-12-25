@@ -9,6 +9,7 @@ use App\Models\Karyawan;
 use App\Models\Kategory;
 use App\Models\Pelanggan;
 use App\Models\Penjualan;
+use App\Models\Pembelian;
 use App\Models\Suplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -60,10 +61,25 @@ class AdminController extends Controller
         return view('admin.transaksiPenjualan', compact('data_cart', 'data_pelanggan', 'data_karyawan'));
     }
 
-    public function cart()
+    public function transaksiPembelian()
+    {
+        $data_cart = DB::table('barangs')->join('cart_models', 'cart_models.id_barang', '=', 'barangs.id')->get();
+        $data_suplier = Suplier::all();
+        $data_karyawan = Karyawan::all();
+
+        return view('admin.transaksiPembelian', compact('data_cart', 'data_suplier', 'data_karyawan'));
+    }
+
+    public function cartPenjualan()
     {
         $data_barang = Barang::all();
-        return view('admin.cart', compact('data_barang'));
+        return view('admin.cartPenjualan', compact('data_barang'));
+    }
+
+    public function cartPembelian()
+    {
+        $data_barang = Barang::all();
+        return view('admin.cartPembelian', compact('data_barang'));
     }
 
     public function penjualan()
@@ -76,11 +92,32 @@ class AdminController extends Controller
 
     public function pembelian()
     {
-        return view('admin.pembelian');
+        $data_karyawan = Karyawan::all();
+        $data_suplier = Suplier::all();
+
+        return view('admin.pembelian', compact('data_karyawan', 'data_suplier'));
     }
 
     public function laporan()
     {
-        return view('admin.laporan');
+        $laporan_penjualan =  Penjualan::with('barang', 'karyawan', 'pelanggan', 'detail_penjualan')->get();
+        $laporan_pembelian =  Pembelian::with('barang', 'karyawan', 'suplier', 'detail_pembelian')->get();
+        $d_penjualan = Detail_penjualan::all();
+
+        return view('admin.laporan', compact('laporan_penjualan', 'laporan_pembelian', 'd_penjualan'));
+    }
+
+    public function print_laporanPenjualan()
+    {
+        $laporan_penjualan =  Penjualan::with('barang', 'karyawan', 'pelanggan', 'detail_penjualan')->get();
+
+        return view('admin.print_laporanPenjualan', compact('laporan_penjualan'));
+    }
+
+    public function print_laporanPembelian()
+    {
+        $laporan_pembelian =  Pembelian::with('barang', 'karyawan', 'suplier', 'detail_pembelian')->get();
+
+        return view('admin.print_laporanPembelian', compact('laporan_pembelian'));
     }
 }
