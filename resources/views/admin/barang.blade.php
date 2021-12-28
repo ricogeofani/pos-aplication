@@ -21,6 +21,7 @@
                                 <i class="fa fa-plus"></i>
                                 Add Data
                             </a>
+                            <a href="javascript:location.reload(true)" class="btn btn-success"><i class="fa fa-undo" aria-hidden="true"></i> Refresh</a>
                         </div>
                         <div class="card-body">
                             <table id="datatable" class="table table-striped">

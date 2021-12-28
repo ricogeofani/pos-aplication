@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endpush
 
-@section('header', 'pelanggan')
+@section('header', 'user setting')
 @section('content')
 <component id="controller">
 
@@ -24,9 +24,9 @@
                             <table id="datatable" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Nama Suplier</th>
-                                        <th>Telp</th>
-                                        <th>Alamat</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -43,8 +43,8 @@
             <div class="modal-content">
                 <form :action="actionUrl" method="post" autocomplete="of" @submit="submitForm($event, data.id)">
                     <div class="modal-header text-uppercase bg-warning">
-                        <h4 class="modal-title" id="exampleModalLabel" v-if="!editStatus">Add Suplier</h4>
-                        <h4 class="modal-title" id="exampleModalLabel" v-if="editStatus">Edit suplier</h4>
+                        <h4 class="modal-title" id="exampleModalLabel" v-if="!editStatus">User Register</h4>
+                        <h4 class="modal-title" id="exampleModalLabel" v-if="editStatus">Edit User</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -53,12 +53,24 @@
                         <input type="hidden" name="_method" value="put" v-if="editStatus">
                         @csrf
                         <div class="form-group">
-                            <label>Nama Suplier</label>
-                            <input type="text" name="nama" :value="data.nama_suplier" class="form-control" required>
-                            <label>Telp</label>
-                            <input type="text" name="telp" :value="data.telp" class="form-control" required>
-                            <label>Alamat</label>
-                            <input type="text" name="alamat" :value="data.alamat" class="form-control" required>
+                            <label>Username</label>
+                            <select name="id_karyawan" class="form-control">
+                                @foreach ($data_karyawan as $karyawan)
+                                    <option value="{{ $karyawan->id }}">{{ $karyawan->nama_karyawan }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" :value="data.email" class="form-control" required>
+                        </div> 
+                        <div class="form-group">
+                            <label>password</label>
+                            <input type="password" name="password" :value="data.password" class="form-control" required>
+                        </div> 
+                        <div class="form-group">
+                            <label>password confirm</label>
+                            <input type="password" name="passwordConfirm" class="form-control" required>
                         </div> 
                     </div>
                     <div class="modal-footer">
@@ -67,7 +79,7 @@
                 </form>
             </div>
         </div>
-    </div>
+        </div>
 
 </component>
 @endsection
@@ -80,11 +92,11 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 
     <script type="text/javascript">
-        var actionUrl = '{{ url('data/suplier') }}';
+        var actionUrl = '{{ url('data/user') }}';
         var columns = [
-            {data: 'nama_suplier', class: 'text-center', orderable: true},
-            {data: 'telp', class: 'text-center', orderable: true},
-            {data: 'alamat', class: 'text-center', orderable: true},
+            {data: 'karyawan.nama_karyawan', class: 'text-center', orderable: true},
+            {data: 'email', class: 'text-center', orderable: true},
+            {data: 'karyawan.jabatan', class: 'text-center', orderable: true},
             {render: function(index, row, data, meta){
                 return `
                 <div class="d-flex">

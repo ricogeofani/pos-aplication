@@ -17,6 +17,7 @@ class CreatePenjualansTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_karyawan')->nullable();
             $table->unsignedBigInteger('id_pelanggan')->nullable();
+            $table->boolean('status');
             $table->timestamps();
 
             $table->foreign('id_karyawan')->references('id')->on('karyawans');

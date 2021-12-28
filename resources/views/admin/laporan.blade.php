@@ -6,9 +6,12 @@
     <thead class="bg-warning">
         <div class="header d-flex justify-content-between mb-2">
             <h4>Laporan Penjualan</h4>
-            <a href="{{ url('printPenjualan') }}" target="_blank" class="btn btn-success" target="_blanc"><i class="nav-icon fas fa-print"></i>Print Penjualan</a>
+            <div class="btn">
+                <a href="javascript:location.reload(true)" class="btn btn-success"><i class="fa fa-undo" aria-hidden="true"></i> Refresh</a>
+                <a href="{{ url('printPenjualan') }}" target="_blank" class="btn btn-primary" target="_blanc"><i class="nav-icon fas fa-print"></i> Print Penjualan</a>
+            </div>
         </div>
-        <tr>
+        <tr align="center">
             <th>Tanggal Penjualan</th>
             <th>Nama Karyawan</th>
             <th>Jabatan</th>
@@ -33,9 +36,12 @@
     <thead class="bg-warning">
         <div class="header d-flex justify-content-between mb-2">
             <h4>Laporan Pembelian</h4>
-            <a href="{{ url('printPembelian') }}" target="_blank" class="btn btn-success" target="_blanc"><i class="nav-icon fas fa-print"></i>Print Pembelian</a>
+            <div class="btn">
+                <a href="javascript:location.reload(true)" class="btn btn-success"><i class="fa fa-undo" aria-hidden="true"></i> Refresh</a>
+                <a href="{{ url('printPembelian') }}" target="_blank" class="btn btn-primary" target="_blanc"><i class="nav-icon fas fa-print"></i> Print Pembelian</a>
+            </div>
         </div>
-        <tr>
+        <tr align="center">
             <th>Tanggal Pembelian</th>
             <th>Nama Karyawan</th>
             <th>Jabatan</th>

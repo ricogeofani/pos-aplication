@@ -17,7 +17,8 @@
             <div class="card">
                 <div class="row">
                     <div class="col-md-4">
-                        <a href="{{ url('cartPembelian') }}" class="btn btn-secondary ml-3 mt-3">Kembali</a>
+                        <a href="{{ url('cartPembelian') }}" class="btn btn-secondary ml-3 mt-3"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
+                        <a href="javascript:location.reload(true)" class="btn btn-success mt-3"><i class="fa fa-undo" aria-hidden="true"></i> Refresh</a>
                     </div>
                 </div>
                 <div class="container">
@@ -43,7 +44,7 @@
                                             <label>Nama Karyawan</label>
                                         </div>
                                         <div class="col-md-4">
-                                            <select name="id_karyawan" class="form-control">
+                                            <select name="id_karyawan" class="form-control bg-secondary">
                                                 <option value="0">.pilih karyawan</option>
                                                 @foreach ($data_karyawan as $karyawan)
                                                     <option value="{{ $karyawan->id }}">{{ $karyawan->nama_karyawan }}</option>
@@ -58,12 +59,24 @@
                                             <label>Nama Suplier</label>
                                         </div>
                                         <div class="col-md-4">
-                                            <select name="id_suplier" class="form-control">
+                                            <select name="id_suplier" class="form-control bg-secondary">
                                                 <option value="0">.pilih suplier</option>
                                                 @foreach ($data_suplier as $suplier)
                                                     <option value="{{ $suplier->id }}">{{ $suplier->nama_suplier }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                            <div class="col-md-2"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-2">
+                                            <label>Status Pembayaran</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="radio" name="status" value="1" required> Tunai 
+                                            <input type="radio" name="status" value="0" required class="ml-5"> Kredit
                                         </div>
                                             <div class="col-md-2"></div>
                                         </div>

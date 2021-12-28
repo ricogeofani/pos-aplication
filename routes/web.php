@@ -12,6 +12,7 @@ use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,12 +43,16 @@ Route::get('/pembelian', [AdminController::class, 'pembelian']);
 Route::get('/cartPenjualan', [AdminController::class, 'cartPenjualan']);
 Route::get('/cartPembelian', [AdminController::class, 'cartPembelian']);
 Route::get('/penjualan', [AdminController::class, 'penjualan']);
+Route::get('/kasir', [AdminController::class, 'kasir']);
 Route::get('/laporan', [AdminController::class, 'laporan']);
 Route::get('/printPenjualan', [AdminController::class, 'print_LaporanPenjualan']);
 Route::get('/printPembelian', [AdminController::class, 'print_LaporanPembelian']);
+Route::get('/userSetting', [AdminController::class, 'userSetting']);
+Route::get('/testSpatie', [AdminController::class, 'test_spatie']);
 
 Auth::routes();
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [AdminController::class, 'dashboard'])->name('dashboard');
 
 Route::prefix('data')->group(function () {
     Route::resource('/kategory', KategoryController::class);
@@ -58,4 +63,5 @@ Route::prefix('data')->group(function () {
     Route::resource('/penjualan', PenjualanController::class);
     Route::resource('/pembelian', PembelianController::class);
     Route::resource('/cart', CartController::class);
+    Route::resource('/user', UserController::class);
 });

@@ -1,3 +1,4 @@
+
 @extends('layouts.admin')
 
 @push('css')
@@ -16,8 +17,17 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-10">
-                            <a href="{{ url('cartPenjualan') }}" class="btn btn-primary"> <i class="fa fa-plus"></i>Add Transaksi</a>
+                        <div class="col-md-7">
+                            <a href="{{ url('cartPenjualan') }}" class="btn btn-primary"> <i class="fa fa-plus"></i> Add Transaksi</a>
+                            <a href="javascript:location.reload(true)" class="btn btn-success"><i class="fa fa-undo" aria-hidden="true"></i> Refresh</a>
+                        </div>
+                        <div class="col-md-5 d-flex">
+                            <select class="form-control mr-2 bg-secondary" name="status">
+                                <option value="0">Semua Data Status</option>
+                                <option value="tunai">Pembeyaran Tunai</option>
+                                <option value="kredit">Pembeyaran Kredit</option>
+                            </select>
+                            <input type="date" name="tglPenjualan" class="form-control bg-secondary">
                         </div>
                         <div class="card-body">
                             <table id="datatable" class="table table-striped">
@@ -28,6 +38,7 @@
                                         <th>Nama Karyawan</th>
                                         <th>Jabatan</th>
                                         <th>Nama Pelanggan</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -78,6 +89,15 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <label>Status Pembayaran</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="radio" name="status" value="1"> Tunai
+                                    <input type="radio" name="status" value="0"> Kredit
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -125,7 +145,16 @@
                                         <h5>Nama Pelanggan : </h5>
                                     </div>
                                     <div class="col-md-3">
-                                        <h5 v-for="pelanggan in data">@{{ pelanggan.nama_pelanggan }}</h5>
+                                        <h5 v-for="pelanggan in data">@{{ pelanggan.nama_pelanggan}}</h5>
+                                    </div>
+                                    <div class="col-md-6"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h5>Status Pembayaran : </h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h5>@{{ data.status == 1 ? 'tunai' : 'kredit'  }}</h5>
                                     </div>
                                     <div class="col-md-6"></div>
                                 </div>
@@ -139,7 +168,7 @@
                                   <h5 class="card-title">@{{ barang.kode }}</h5><hr>
                                   <p class="card-text">@{{ barang.nama_barang }}</p>
                                   <p class="card-text">@{{ barang.qty_stok }} @{{ barang.unit }}</p>
-                                  <p class="card-text">Rp. @{{ formatPrice(barang.harga_jual) }}</</p>
+                                  <p class="card-text">Rp. @{{ formatPrice(barang.harga_beli) }}</</p>
                                 </div>
                             </div>
                         </div>
@@ -169,7 +198,7 @@
             {render: function(index, row, data, meta){
                  const date =  new Date(data.created_at)
                  tanggal = date.getDate()
-                 bulan = date.getMonth()
+                 bulan = date.getMonth() + 1
                  tahun = date.getFullYear()
                  
                  return tanggal+' - '+bulan+' - '+tahun
@@ -178,6 +207,14 @@
             {data: 'karyawan.nama_karyawan', class: 'text-center', orderable: true},
             {data: 'karyawan.jabatan', class: 'text-center', orderable: true},
             {data: 'pelanggan.nama_pelanggan', class: 'text-center', orderable: true},
+            
+            {render: function(index, row, data, meta){
+                if(data.status == 1) {
+                    return 'Tunai'
+                }else {
+                    return 'Kredit'
+                }
+            }, orderable: false, width: '100px', class: 'text-center'},
 
             {render: function(index, row, data, meta){
                 return `
@@ -199,4 +236,37 @@
 
     <script src="{{ asset('js/data.js') }}"></script>
 
+     {{-- filter --}}
+    <script type="text/javascript">
+        $('select[name=status]').on('change', function() {
+            status = $('select[name=status]').val();
+            tglPenjualan = $('input[name=tglPenjualan]').val();
+
+            if(status == 0) {
+                if(tglPenjualan == '') {
+                    controller.table.ajax.url(actionUrl).load();
+                }else {
+                    controller.table.ajax.url(actionUrl + '?tglPenjualan=' + tglPenjualan).load();
+                }
+            }else {
+                controller.table.ajax.url(actionUrl + '?status=' + status + '&tglPenjualan=' + tglPenjualan).load();
+            }
+        })
+        $('input[name=tglPenjualan]').on('change', function() {
+            tglPenjualan = $('input[name=tglPenjualan]').val();
+            status = $('select[name=status]').val();
+
+            if(tglPenjualan == '') {
+                if(status == 0) {
+                    controller.table.ajax.url(actionUrl).load();
+                }else {
+                    controller.table.ajax.url(actionUrl + '?status=' + status).load();
+                }
+            }else {
+                controller.table.ajax.url(actionUrl + '?status=' + status + '&tglPenjualan=' + tglPenjualan ).load();
+            }
+        })
+    </script>
+
 @endpush
+

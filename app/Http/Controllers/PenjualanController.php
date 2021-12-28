@@ -17,9 +17,22 @@ class PenjualanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $datas = Penjualan::with('barang', 'karyawan', 'pelanggan', 'detail_penjualan')->get();
+        $datas = Penjualan::with('barang', 'karyawan', 'pelanggan', 'detail_penjualan');
+
+        // cek untuk filter status
+        if ($request->status) {
+            $filter_status = $request->status == 'tunai' ? 1 : 0;
+            $datas  = $datas->where('status', '=', $filter_status);
+        }
+
+        //cek filter tgl penjualan
+        if ($request->tglPenjualan) {
+            $datas = $datas->where('created_at', 'like', '%' . $request->tglPenjualan . '%');
+        }
+
+        $datas = $datas->get();
 
         $datatables = datatables()->of($datas)->addIndexColumn();
         return $datatables->make(true);
@@ -37,6 +50,7 @@ class PenjualanController extends Controller
         $this->validate($request, [
             'id_karyawan' => ['required'],
             'id_pelanggan' => ['required'],
+            'status'       => ['required'],
         ]);
 
         if ($request->id_karyawan == 0) {
@@ -49,8 +63,9 @@ class PenjualanController extends Controller
         }
 
         $penjualan = Penjualan::create([
-            'id_karyawan' => $request->id_karyawan,
+            'id_karyawan'  => $request->id_karyawan,
             'id_pelanggan' => $request->id_pelanggan,
+            'status'       => $request->status,
         ]);
 
         $barangs = $request->id_barang;
@@ -61,7 +76,6 @@ class PenjualanController extends Controller
                 'id_penjualan'  => $penjualan->id,
                 'id_barang'     => $value,
                 'qty'           => $qtys[$key],
-                'total_bayar'         => $request->total[$key],
                 'created_at'    => now(),
                 'updated_at'    => now(),
             ]);
@@ -89,12 +103,14 @@ class PenjualanController extends Controller
         $this->validate($request, [
             'id_karyawan' => ['required'],
             'id_pelanggan' => ['required'],
+            'status'       => ['required'],
         ]);
 
         $penjualan = Penjualan::find($id);
         $penjualan->update([
             'id_karyawan' => $request->id_karyawan,
             'id_pelanggan' => $request->id_pelanggan,
+            'status'       => $request->status,
         ]);
     }
 

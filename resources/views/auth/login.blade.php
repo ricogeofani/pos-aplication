@@ -5,11 +5,11 @@
 <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href=""><b>Aplication</b>POS</a>
+        <a href=""><b class="text-danger">Aplication</b>POS</a>
       </div>
       <!-- /.login-logo -->
       <div class="card">
-        <div class="card-body login-card-body bg-dark">
+        <div class="card-body login-card-body bg-dark pb-5">
           <h5 class="login-box-msg text-uppercase">Halaman Login</h5>
     
           <form action="{{ route('login') }}" method="POST">
@@ -52,19 +52,6 @@
                 </button>
               </div>
           </form>
-          <div class="footer-login text-center">
-          <p class="mb-1">
-            @if (Route::has('password.request'))
-            <a class="btn btn-link" href="{{ route('password.request') }}">
-                {{ __('Forgot Your Password?') }}
-            </a>
-            @endif
-          </p>
-          <p class="mb-0">
-            <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
-          </p>
-        </div>
-        </div>
         <!-- /.login-card-body -->
       </div>
     </div>

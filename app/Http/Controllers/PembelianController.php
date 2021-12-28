@@ -17,9 +17,22 @@ class PembelianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $datas = Pembelian::with('barang', 'karyawan', 'suplier', 'detail_pembelian')->get();
+        $datas = Pembelian::with('barang', 'karyawan', 'suplier', 'detail_pembelian');
+
+        // cek untuk filter status
+        if ($request->status) {
+            $filter_status = $request->status == 'tunai' ? 1 : 0;
+            $datas  = $datas->where('status', '=', $filter_status);
+        }
+
+        //cek filter tgl penjualan
+        if ($request->tglPembelian) {
+            $datas = $datas->where('created_at', 'like', '%' . $request->tglPembelian . '%');
+        }
+
+        $datas = $datas->get();
 
         $datatables = datatables()->of($datas)->addIndexColumn();
         return $datatables->make(true);
@@ -37,6 +50,7 @@ class PembelianController extends Controller
         $this->validate($request, [
             'id_karyawan' => ['required'],
             'id_suplier' => ['required'],
+            'status'    => ['required'],
         ]);
 
         if ($request->id_karyawan == 0) {
@@ -51,6 +65,7 @@ class PembelianController extends Controller
         $pembelian = Pembelian::create([
             'id_karyawan' => $request->id_karyawan,
             'id_suplier' => $request->id_suplier,
+            'status'    => $request->status,
         ]);
 
         $barangs = $request->id_barang;
@@ -88,12 +103,14 @@ class PembelianController extends Controller
         $this->validate($request, [
             'id_karyawan' => ['required'],
             'id_suplier' => ['required'],
+            'status'    => ['required'],
         ]);
 
         $pembelian = Pembelian::find($id);
         $pembelian->update([
             'id_karyawan' => $request->id_karyawan,
             'id_suplier' => $request->id_suplier,
+            'status'     => $request->status,
         ]);
     }
 

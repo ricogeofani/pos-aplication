@@ -16,8 +16,9 @@
         <div class="col-md">
             <div class="card">
                 <div class="row">
-                    <div class="col-md-4">
-                        <a href="{{ url('cartPenjualan') }}" class="btn btn-secondary ml-3 mt-3">Kembali</a>
+                    <div class="col-md-6">
+                        <a href="{{ url('cartPenjualan') }}" class="btn btn-secondary ml-3 mt-3"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
+                        <a href="javascript:location.reload(true)" class="btn btn-success mt-3"><i class="fa fa-undo" aria-hidden="true"></i> Refresh</a>
                     </div>
                 </div>
                 <div class="container">
@@ -37,35 +38,49 @@
                             <form action="{{ url('data/penjualan') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-4"></div>
-                                        <div class="col-md-2">
-                                            <label>Nama Karyawan</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <select name="id_karyawan" class="form-control">
-                                                <option value="0">.pilih karyawan</option>
-                                                @foreach ($data_karyawan as $karyawan)
-                                                    <option value="{{ $karyawan->id }}">{{ $karyawan->nama_karyawan }}</option>
-                                                @endforeach
-                                            </select>        
-                                        </div>
-                                        <div class="col-md-2"></div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-md-4"></div>
-                                        <div class="col-md-2">
-                                            <label>Nama Pelanggan</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <select name="id_pelanggan" class="form-control">
-                                                <option value="0">.pilih pelanggan</option>
-                                                @foreach ($data_pelanggan as $pelanggan)
-                                                            <option value="{{ $pelanggan->id }}">{{ $pelanggan->nama_pelanggan }}</option>
-                                                        @endforeach
-                                            </select>
-                                        </div>
+                                    <div class="header">
+                                        <div class="row">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-2">
+                                                <label>Nama Karyawan</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select name="id_karyawan" class="form-control bg-secondary">
+                                                    <option value="0">.pilih karyawan</option>
+                                                    @foreach ($data_karyawan as $karyawan)
+                                                        <option value="{{ $karyawan->id }}">{{ $karyawan->nama_karyawan }}</option>
+                                                    @endforeach
+                                                </select>        
+                                            </div>
                                             <div class="col-md-2"></div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-2">
+                                                <label>Nama Pelanggan</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select name="id_pelanggan" class="form-control bg-secondary">
+                                                    <option value="0">.pilih pelanggan</option>
+                                                    @foreach ($data_pelanggan as $pelanggan)
+                                                        <option value="{{ $pelanggan->id }}">{{ $pelanggan->nama_pelanggan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                                <div class="col-md-2"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-2">
+                                                <label>Status Pembayaran</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="radio" name="status" value="1" required> Tunai 
+                                                <input type="radio" name="status" value="0" required class="ml-5"> Kredit
+                                            </div>
+                                                <div class="col-md-2"></div>
+                                            </div>
                                         </div>
                                     </div>
                                         

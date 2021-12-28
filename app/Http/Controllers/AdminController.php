@@ -11,8 +11,11 @@ use App\Models\Pelanggan;
 use App\Models\Penjualan;
 use App\Models\Pembelian;
 use App\Models\Suplier;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 use function GuzzleHttp\Promise\all;
 
@@ -20,7 +23,44 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $total_barang = Barang::count();
+        $total_kategory = Kategory::count();
+        $total_karyawan = Karyawan::count();
+        $total_pelanggan = Pelanggan::count();
+        $total_suplier = Suplier::count();
+        $total_penjualan = Penjualan::count();
+        $total_pembelian = Pembelian::count();
+
+        //data grafik bar
+        $label_bar = ['Penjualan', 'Pembelian'];
+        $data_bar = [];
+
+        foreach ($label_bar as $key => $value) {
+            $data_bar[$key]['label'] = $label_bar[$key];
+            $data_bar[$key]['backgroundColor'] = $key == 0 ? 'rgba(60, 141, 188, 0.9)' : 'rgba(210, 214, 222, 1)';
+            $data_month = [];
+
+            foreach (range(1, 12) as $month) {
+                if ($key == 0) {
+                    $data_month[] = Penjualan::select(DB::raw('COUNT(*) as total'))->whereMonth('created_at', $month)->first()->total;
+                } else {
+                    $data_month[] = Pembelian::select(DB::raw('COUNT(*) as total'))->whereMonth('created_at', $month)->first()->total;
+                }
+            }
+            $data_bar[$key]['data'] = $data_month;
+        }
+
+
+        return view('admin.dashboard', compact(
+            'total_barang',
+            'total_kategory',
+            'total_karyawan',
+            'total_pelanggan',
+            'total_suplier',
+            'total_penjualan',
+            'total_pembelian',
+            'data_bar',
+        ));
     }
 
     public function barang()
@@ -87,7 +127,13 @@ class AdminController extends Controller
         $data_karyawan = Karyawan::all();
         $data_pelanggan = Pelanggan::all();
 
-        return view('admin.penjualan', compact('data_karyawan', 'data_pelanggan'));
+        return view('admin.dataPenjualan', compact('data_karyawan', 'data_pelanggan'));
+    }
+
+    public function kasir()
+    {
+        $data_barang = Barang::all();
+        return view('admin.cartPenjualan', compact('data_barang'));
     }
 
     public function pembelian()
@@ -120,4 +166,26 @@ class AdminController extends Controller
 
         return view('admin.print_laporanPembelian', compact('laporan_pembelian'));
     }
+
+    public function userSetting()
+    {
+        $data_karyawan = Karyawan::all();
+        return view('admin.settingUser', compact('data_karyawan'));
+    }
+
+    // public function test_spatie()
+    // {
+    //     // $role = Role::create(['name' => 'kasir']);
+    //     // $permission = Permission::create(['name' => 'kasir']);
+    //     // $role->givePermissionTo($permission);
+    //     // $permission->assignRole($role);
+
+    //     $user = User::where('jabatan', 'admin')->with('karyawan');
+    //     $user->assignRole('admin');
+
+    //     $user = auth()->user();
+    //     // $user->removeRole('admin');
+
+    //     return $user;
+    // }
 }

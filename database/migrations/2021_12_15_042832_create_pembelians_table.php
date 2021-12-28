@@ -17,6 +17,7 @@ class CreatePembeliansTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_suplier')->nullable();
             $table->unsignedBigInteger('id_karyawan')->nullable();
+            $table->boolean('status');
             $table->timestamps();
 
             $table->foreign('id_karyawan')->references('id')->on('karyawans');

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pembelian extends Model
 {
     use HasFactory;
-    protected $fillable = ['id_karyawan', 'id_suplier'];
+    protected $fillable = ['id_karyawan', 'id_suplier', 'status'];
 
     public function suplier()
     {

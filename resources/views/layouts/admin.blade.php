@@ -79,8 +79,22 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <span class="badge badge-warning navbar-badge">{{ belum_lunas() }}</span>
         </a>
+        <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
+          <span class="dropdown-item dropdown-header"><h4>{{ belum_lunas() }} Pelanggan</h4></span>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            @foreach (pelanggan_kredit() as $data)
+                <p class="font-weight-bold"><i class="fa fa-chevron-right"></i> {{ $data['pelanggan']['nama_pelanggan'] }} belum lunas</p>
+                <br>
+            @endforeach
+            <span class="float-right text-muted text-sm">{{ now() }}</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-divider"></div>
+          <a href="{{ url('penjualan') }}" class="dropdown-item dropdown-footer">See All Detail Notifications</a>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -119,7 +133,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
-              <li class="nav-item menu-open mt-2">
+              <li class="nav-item menu-open">
                 <a href="{{ url('dashboard') }}" class="nav-link text-dark {{ request()->is('dashboard') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-th"></i>
                   <p>
@@ -127,7 +141,7 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item menu-open mt-2">
+              <li class="nav-item menu-open">
                 <a href="#" class="nav-link text-dark">
                   <i class="nav-icon fas fa-list"></i>
                   <p>
@@ -150,7 +164,7 @@
                     </li>
                 </ul>
               </li>
-              <li class="nav-item menu-open mt-2">
+              <li class="nav-item menu-open">
                 <a href="{{ url('pelanggan') }}" class="nav-link text-dark {{ request()->is('pelanggan') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-users"></i>
                   <p>
@@ -158,7 +172,7 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item menu-open mt-2">
+              <li class="nav-item menu-open">
                 <a href="{{ url('karyawan') }}" class="nav-link text-dark {{ request()->is('karyawan') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-user"></i>
                   <p>
@@ -166,7 +180,7 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item menu-open mt-2">
+              <li class="nav-item menu-open">
                 <a href="{{ url('suplier') }}" class="nav-link text-dark {{ request()->is('suplier') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-truck"></i>
                   <p>
@@ -174,7 +188,7 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item menu-open mt-2">
+              <li class="nav-item menu-open">
                 <a href="#" class="nav-link text-dark">
                   <i class="nav-icon fas fa-list"></i>
                   <p>
@@ -185,8 +199,14 @@
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                       <a href="{{ url('penjualan') }}" class="nav-link text-dark {{ request()->is('penjualan') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <i class="fa fa-credit-card"></i>
                         <p>penjualan</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{ url('kasir') }}" class="nav-link text-dark {{ request()->is('kasir') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>Kasir</p>
                       </a>
                     </li>
                     <li class="nav-item">
@@ -197,11 +217,19 @@
                     </li>
                 </ul>
               </li>
-              <li class="nav-item menu-open mt-2">
+              <li class="nav-item menu-open">
                 <a href="{{ url('laporan') }}" class="nav-link text-dark {{ request()->is('laporan') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-print"></i>
                   <p>
                     laporan
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item menu-open">
+                <a href="{{ url('userSetting') }}" class="nav-link text-dark {{ request()->is('setting') ? 'active' : '' }}">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  <p>
+                    User Setting
                   </p>
                 </a>
               </li>

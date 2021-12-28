@@ -16,8 +16,17 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-10">
-                            <a href="{{ url('cartPembelian') }}" class="btn btn-primary"> <i class="fa fa-plus"></i>Add Transaksi</a>
+                        <div class="col-md-7">
+                            <a href="{{ url('cartPembelian') }}" class="btn btn-primary"> <i class="fa fa-plus"></i> Add Transaksi</a>
+                            <a href="javascript:location.reload(true)" class="btn btn-success"><i class="fa fa-undo" aria-hidden="true"></i> Refresh</a>
+                        </div>
+                        <div class="col-md-5 d-flex">
+                            <select class="form-control mr-2 bg-secondary" name="status">
+                                <option value="0">Semua Data Status</option>
+                                <option value="tunai">Pembelian Tunai</option>
+                                <option value="kredit">Pembelian Kredit</option>
+                            </select>
+                            <input type="date" name="tglPembelian" class="form-control bg-secondary">
                         </div>
                         <div class="card-body">
                             <table id="datatable" class="table table-striped">
@@ -28,6 +37,7 @@
                                         <th>Nama Karyawan</th>
                                         <th>Jabatan</th>
                                         <th>Nama Suplier</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -76,6 +86,15 @@
                                             <option :selected="{{ $suplier->id }} == data.id_suplier" :value="{{ $suplier->id }}">{{ $suplier->nama_suplier }}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <label>Status Pembayaran</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="radio" name="status" value="1"> Tunai
+                                    <input type="radio" name="status" value="0"> Kredit
                                 </div>
                             </div>
                         </div>
@@ -169,7 +188,7 @@
             {render: function(index, row, data, meta){
                  const date =  new Date(data.created_at)
                  tanggal = date.getDate()
-                 bulan = date.getMonth()
+                 bulan = date.getMonth() + 1
                  tahun = date.getFullYear()
                  
                  return tanggal+' - '+bulan+' - '+tahun
@@ -178,6 +197,14 @@
             {data: 'karyawan.nama_karyawan', class: 'text-center', orderable: true},
             {data: 'karyawan.jabatan', class: 'text-center', orderable: true},
             {data: 'suplier.nama_suplier', class: 'text-center', orderable: true},
+           
+            {render: function(index, row, data, meta){
+                if(data.status == 1) {
+                    return 'Tunai'
+                }else {
+                    return 'Kredit'
+                }
+            }, orderable: false, width: '100px', class: 'text-center'},
 
             {render: function(index, row, data, meta){
                 return `
@@ -198,5 +225,37 @@
     </script>
 
     <script src="{{ asset('js/data.js') }}"></script>
+
+     {{-- filter --}}
+     <script type="text/javascript">
+        $('select[name=status]').on('change', function() {
+            status = $('select[name=status]').val();
+            tglPembelian = $('input[name=tglPembelian]').val();
+
+            if(status == 0) {
+                if(tglPembelian == '') {
+                    controller.table.ajax.url(actionUrl).load();
+                }else {
+                    controller.table.ajax.url(actionUrl + '?tglPembelian=' + tglPembelian).load();
+                }
+            }else {
+                controller.table.ajax.url(actionUrl + '?status=' + status + '&tglPembelian=' + tglPembelian).load();
+            }
+        })
+        $('input[name=tglPembelian]').on('change', function() {
+            tglPembelian = $('input[name=tglPembelian]').val();
+            status = $('select[name=status]').val();
+
+            if(tglPembelian == '') {
+                if(status == 0) {
+                    controller.table.ajax.url(actionUrl).load();
+                }else {
+                    controller.table.ajax.url(actionUrl + '?status=' + status).load();
+                }
+            }else {
+                controller.table.ajax.url(actionUrl + '?status=' + status + '&tglPembelian=' + tglPembelian ).load();
+            }
+        })
+    </script>
 
 @endpush
