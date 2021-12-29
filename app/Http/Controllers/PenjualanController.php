@@ -54,12 +54,12 @@ class PenjualanController extends Controller
         ]);
 
         if ($request->id_karyawan == 0) {
-            return back()->with('m_gagal', 'select data karyawan dulu!!');;
+            return back()->with('m_gagal', 'pilih data karyawan dulu!!');;
         }
 
         if ($request->id_pelanggan == 0) {
             // Alert::danger('gagal', 'Data pelanggan dan karyawan kosong!!');
-            return back()->with('m_gagal', 'select data pelanggan dulu!!');;
+            return back()->with('m_gagal', 'pilih data pelanggan dulu!!');;
         }
 
         $penjualan = Penjualan::create([
@@ -87,7 +87,7 @@ class PenjualanController extends Controller
         }
 
         $cart->where($cart->id)->delete();
-        return redirect('penjualan')->with('m_berhasil', 'transaksi berhasil!!');
+        return redirect('kasir')->with('m_berhasil', 'transaksi success');
     }
 
 

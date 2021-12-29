@@ -172,20 +172,4 @@ class AdminController extends Controller
         $data_karyawan = Karyawan::all();
         return view('admin.settingUser', compact('data_karyawan'));
     }
-
-    // public function test_spatie()
-    // {
-    //     // $role = Role::create(['name' => 'kasir']);
-    //     // $permission = Permission::create(['name' => 'kasir']);
-    //     // $role->givePermissionTo($permission);
-    //     // $permission->assignRole($role);
-
-    //     $user = User::where('jabatan', 'admin')->with('karyawan');
-    //     $user->assignRole('admin');
-
-    //     $user = auth()->user();
-    //     // $user->removeRole('admin');
-
-    //     return $user;
-    // }
 }

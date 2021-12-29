@@ -124,7 +124,7 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-3 mt-2">
-                                        <h5>Nama Karyawan : </h5>
+                                        <h5>Nama Karyawan </h5>
                                     </div>
                                     <div class="col-md-3">
                                         <h5 v-for="karyawan in data" class="mb-2">@{{ karyawan.nama_karyawan }}</h5>
@@ -133,7 +133,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3 mt-2">
-                                        <h5>Jabatan : </h5>
+                                        <h5>Jabatan</h5>
                                     </div>
                                     <div class="col-md-3">
                                         <h5 v-for="karyawan in data" class="mb-2">@{{ karyawan.jabatan }}</h5>
@@ -142,7 +142,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3 mt-2">
-                                        <h5>Nama Pelanggan : </h5>
+                                        <h5>Nama Pelanggan</h5>
                                     </div>
                                     <div class="col-md-3">
                                         <h5 v-for="pelanggan in data">@{{ pelanggan.nama_pelanggan}}</h5>
@@ -151,7 +151,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <h5>Status Pembayaran : </h5>
+                                        <h5>Status Pembayaran </h5>
                                     </div>
                                     <div class="col-md-3">
                                         <h5>@{{ data.status == 1 ? 'tunai' : 'kredit'  }}</h5>

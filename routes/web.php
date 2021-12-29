@@ -26,33 +26,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(['middleware' => ['auth', 'ceklevel:staf,manager,admin']], function () {
+    Route::get('/laporan', [AdminController::class, 'laporan']);
+    Route::get('/printPenjualan', [AdminController::class, 'print_LaporanPenjualan']);
+    Route::get('/printPembelian', [AdminController::class, 'print_LaporanPembelian']);
+});
+
+Route::group(['middleware' => ['auth', 'ceklevel:kasir,manager,admin,staf']], function () {
+    Route::get('/home', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [AdminController::class, 'dashboard']);
+    Route::get('/kasir', [AdminController::class, 'kasir']);
+    Route::get('/transaksiPenjualan', [AdminController::class, 'transaksiPenjualan']);
+    Route::get('/cartPenjualan', [AdminController::class, 'cartPenjualan']);
+});
+
+Route::group(['middleware' => ['auth', 'ceklevel:manager,admin']], function () {
+    Route::get('/barang', [AdminController::class, 'barang']);
+    Route::get('/kategory', [AdminController::class, 'kategory']);
+    Route::get('/pelanggan', [AdminController::class, 'pelanggan']);
+    Route::get('/karyawan', [AdminController::class, 'karyawan']);
+    Route::get('/suplier', [AdminController::class, 'suplier']);
+    Route::get('/transaksiPembelian', [AdminController::class, 'transaksiPembelian']);
+    Route::get('/pembelian', [AdminController::class, 'pembelian']);
+    Route::get('/cartPembelian', [AdminController::class, 'cartPembelian']);
+    Route::get('/penjualan', [AdminController::class, 'penjualan']);
+    Route::get('/userSetting', [AdminController::class, 'userSetting']);
+});
+
 Route::get('/', function () {
     return view('auth.login');
 });
-
-
-Route::get('/dashboard', [AdminController::class, 'dashboard']);
-Route::get('/barang', [AdminController::class, 'barang']);
-Route::get('/kategory', [AdminController::class, 'kategory']);
-Route::get('/pelanggan', [AdminController::class, 'pelanggan']);
-Route::get('/karyawan', [AdminController::class, 'karyawan']);
-Route::get('/suplier', [AdminController::class, 'suplier']);
-Route::get('/transaksiPenjualan', [AdminController::class, 'transaksiPenjualan']);
-Route::get('/transaksiPembelian', [AdminController::class, 'transaksiPembelian']);
-Route::get('/pembelian', [AdminController::class, 'pembelian']);
-Route::get('/cartPenjualan', [AdminController::class, 'cartPenjualan']);
-Route::get('/cartPembelian', [AdminController::class, 'cartPembelian']);
-Route::get('/penjualan', [AdminController::class, 'penjualan']);
-Route::get('/kasir', [AdminController::class, 'kasir']);
-Route::get('/laporan', [AdminController::class, 'laporan']);
-Route::get('/printPenjualan', [AdminController::class, 'print_LaporanPenjualan']);
-Route::get('/printPembelian', [AdminController::class, 'print_LaporanPembelian']);
-Route::get('/userSetting', [AdminController::class, 'userSetting']);
-Route::get('/testSpatie', [AdminController::class, 'test_spatie']);
-
 Auth::routes();
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/home', [AdminController::class, 'dashboard'])->name('dashboard');
 
 Route::prefix('data')->group(function () {
     Route::resource('/kategory', KategoryController::class);

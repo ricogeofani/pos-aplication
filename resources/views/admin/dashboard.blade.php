@@ -110,7 +110,7 @@
             <!-- BAR CHART -->
             <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title text-danger">Grafik Data Penjualan dan Pembelian</h3>
+                  <h3 class="card-title text-danger text-uppercase">Grafik Data Penjualan dan Pembelian</h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                       <i class="fas fa-minus"></i>

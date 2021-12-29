@@ -26,7 +26,7 @@
                                     <tr>
                                         <th>Username</th>
                                         <th>Email</th>
-                                        <th>Role</th>
+                                        <th>Level</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -56,7 +56,7 @@
                             <label>Username</label>
                             <select name="id_karyawan" class="form-control">
                                 @foreach ($data_karyawan as $karyawan)
-                                    <option value="{{ $karyawan->id }}">{{ $karyawan->nama_karyawan }}</option>
+                                    <option :selected="{{ $karyawan->id }} == data.id_karyawan" value="{{ $karyawan->id }}">{{ $karyawan->nama_karyawan }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -71,7 +71,15 @@
                         <div class="form-group">
                             <label>password confirm</label>
                             <input type="password" name="passwordConfirm" class="form-control" required>
-                        </div> 
+                        </div>
+                        <div class="form-group">
+                            <select name="level" class="form-control">
+                                <option :selected="data.level == 'manager' " value="manager">Manager</option>
+                                <option :selected="data.level == 'admin' " value="admin">Admin</option>
+                                <option :selected="data.level == 'kasir' "value="kasir">Kasir</option>
+                                <option :selected="data.level == 'staf' "value="staf">Staf</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary mr-5">Save Data</button>
@@ -96,7 +104,7 @@
         var columns = [
             {data: 'karyawan.nama_karyawan', class: 'text-center', orderable: true},
             {data: 'email', class: 'text-center', orderable: true},
-            {data: 'karyawan.jabatan', class: 'text-center', orderable: true},
+            {data: 'level', class: 'text-center', orderable: true},
             {render: function(index, row, data, meta){
                 return `
                 <div class="d-flex">

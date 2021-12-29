@@ -25,16 +25,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -46,37 +36,15 @@ class UserController extends Controller
             'id_karyawan' => ['required'],
             'email'       => ['required'],
             'password'    => ['required'],
+            'level'       => ['required'],
         ]);
-
-
 
         User::create([
             'id_karyawan' => $request->id_karyawan,
             'email'       => $request->email,
             'password'    => Hash::make($request->password),
+            'level'       => $request->level,
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -92,13 +60,15 @@ class UserController extends Controller
             'id_karyawan' => ['required'],
             'email'       => ['required'],
             'password'    => ['required'],
+            'level'       => ['required'],
         ]);
 
         $user = User::find($id);
         $user->update([
             'id_karyawan' => $request->id_karyawan,
             'email'       => $request->email,
-            'password'    => Hash::make($request->password,),
+            'password'    => Hash::make($request->password),
+            'level'       => $request->level,
         ]);
     }
 

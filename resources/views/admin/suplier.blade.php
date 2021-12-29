@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endpush
 
-@section('header', 'pelanggan')
+@section('header', 'suplier')
 @section('content')
 <component id="controller">
 

@@ -12,11 +12,11 @@
 <component id="controller">
 
     <div class="row">
-        <div class="col-md">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-10 col-xl-10 col-sm-10 col-lx-10">
                             <a href="#" @click="addData()" class="btn btn-primary">
                                 <i class="fa fa-plus"></i>
                                 Add Data
@@ -24,7 +24,7 @@
                             <a href="javascript:location.reload(true)" class="btn btn-success"><i class="fa fa-undo" aria-hidden="true"></i> Refresh</a>
                         </div>
                         <div class="card-body">
-                            <table id="datatable" class="table table-striped">
+                            <table id="datatable" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>Kode</th>
@@ -61,40 +61,40 @@
                         <input type="hidden" name="_method" value="put" v-if="editStatus">
                         @csrf
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6 col-xl-6 col-sm-6 col-6">
                                 <label>Kode</label>
                                 <input type="text" name="kode" :value="data.kode" class="form-control" required>
                             </div> 
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6 col-xl-6 col-sm-6 col-6">
                                 <label>Nama Barang</label>
                                 <input type="text" name="nama" :value="data.nama_barang" class="form-control" required>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6 col-xl-6 col-sm-6 col-6">
                                 <label>Unit</label>
                                 <select name="unit" class="form-control">
                                     <option :selected="data.unit == 'pcs' " value="pcs">Pcs</option>
                                     <option :selected="data.unit == 'karton' " value="karton">Karton</option>
                                 </select>
                             </div> 
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6 col-xl-6 col-sm-6 col-6">
                                 <label>Harga Beli</label>
                                 <input type="text" name="harga_beli" :value="data.harga_beli" class="form-control" required>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6 col-xl-6 col-sm-6 col-6">
                                 <label>Harga Jual</label>
                                 <input type="text" name="harga_jual" :value="data.harga_jual" class="form-control" required>
                             </div> 
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6 col-xl-6 col-sm-6 col-6">
                                 <label>Qty Stok</label>
                                 <input type="text" name="qty_stok" :value="data.qty_stok" class="form-control" required>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6 col-xl-6 col-sm-6 col-6">
                                 <label>Kategory</label>
                                 <select name="id_kategory" class="form-control">
                                     @foreach ($data_kategory as $kategory)
@@ -102,7 +102,7 @@
                                     @endforeach
                                 </select>
                             </div> 
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6 col-xl-6 col-sm-6 col-6">
                                 <label>Suplier</label>
                                 <select name="id_suplier" class="form-control">
                                     @foreach ($data_suplier as $suplier)

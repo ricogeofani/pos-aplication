@@ -23,6 +23,7 @@ class User extends Authenticatable
         'id_karyawan',
         'email',
         'password',
+        'level',
     ];
 
     /**
