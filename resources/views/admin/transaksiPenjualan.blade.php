@@ -46,10 +46,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <select name="id_karyawan" class="form-control bg-secondary">
-                                                    <option value="0">.pilih karyawan</option>
-                                                    @foreach ($data_karyawan as $karyawan)
-                                                        <option value="{{ $karyawan->id }}">{{ $karyawan->nama_karyawan }}</option>
-                                                    @endforeach
+                                                    <option value="{{ auth()->user()->karyawan->id }}">{{ auth()->user()->karyawan->nama_karyawan }}</option>
                                                 </select>        
                                             </div>
                                             <div class="col-md-2"></div>
