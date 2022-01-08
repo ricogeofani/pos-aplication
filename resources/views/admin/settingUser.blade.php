@@ -73,6 +73,7 @@
                             <input type="password" name="passwordConfirm" class="form-control" required>
                         </div>
                         <div class="form-group">
+                            <label>Jabatan Karyawan</label>
                             <select name="level" class="form-control">
                                 <option :selected="data.level == 'manager' " value="manager">Manager</option>
                                 <option :selected="data.level == 'admin' " value="admin">Admin</option>
